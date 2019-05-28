@@ -173,9 +173,13 @@ class Loader(compiled.Loader):
     def compiled_path(self, template):
         return self.dir + "/" + template.replace(".", "_") + ".py"
 
-    def load(self, name):
+    def load(self, name, debug=False):
         try:
-            return super().load(name)
+            if not debug:
+                return super().load(name)
+            else:
+                self.unload(name)
+
         except (OSError, ImportError):
             pass
 

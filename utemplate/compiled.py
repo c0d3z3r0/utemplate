@@ -9,6 +9,11 @@ class Loader:
             dir = pkg + "." + dir
         self.p = dir
 
+    def unload(self, name):
+        import sys
+        name = name.replace(".", "_")
+        sys.modules.pop(self.p + name, None)
+
     def load(self, name):
         name = name.replace(".", "_")
         return __import__(self.p + name, None, None, (name,)).render
